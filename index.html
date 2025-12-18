@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#070811" />
+  <title>Артём — визитка</title>
+  <meta name="description" content="Артём — UI/UX, веб‑дизайн и разработка. Краснодар. Лэндинги, порталы, формы, motion." />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="bg-animated" aria-hidden="true"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
+
+  <!-- Unified background -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__mesh"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__orb bg__orb--a"></div>
+    <div class="bg__orb bg__orb--b"></div>
+    <div class="bg__orb bg__orb--c"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <header class="topbar" id="top">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="#top" aria-label="Наверх">
+        <span class="brand__logo" aria-hidden="true">
+          <span class="brand__spark"></span>
+          <span class="brand__letter">A</span>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Артём</span>
+          <span class="brand__sub">web • design • events</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" href="#about">Обо мне</a>
+        <a class="nav__link" href="#services">Услуги</a>
+        <a class="nav__link" href="#projects">Проекты</a>
+        <a class="nav__link" href="#skills">Навыки</a>
+        <a class="nav__link" href="#extra">Дополнительно</a>
+        <a class="nav__link" href="#contact">Контакты</a>
+      </nav>
+
+      <div class="actions">
+        <button class="iconbtn" id="themeBtn" type="button" aria-label="Переключить тему">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 12.4A8.5 8.5 0 1 1 11.6 3 7 7 0 0 0 21 12.4Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <button class="iconbtn burger" id="menuBtn" type="button" aria-label="Открыть меню">
+          <span></span><span></span><span></span>
+        </button>
+
+        <a class="btn btn--primary" href="#contact">Связаться</a>
+      </div>
+    </div>
+
+    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__bg" data-close></div>
+    <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Меню">
+      <div class="drawer__top">
+        <div class="drawer__title">Меню</div>
+        <button class="iconbtn" data-close type="button" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="drawer__links">
+        <a href="#about" data-close>Обо мне</a>
+        <a href="#services" data-close>Услуги</a>
+        <a href="#projects" data-close>Проекты</a>
+        <a href="#skills" data-close>Навыки</a>
+        <a href="#extra" data-close>Дополнительно</a>
+        <a href="#contact" data-close>Контакты</a>
+      </div>
+
+      <div class="drawer__cta">
+        <a class="btn btn--primary btn--block" href="#contact" data-close>Написать</a>
+        <button class="btn btn--ghost btn--block" id="copyTgBtn" type="button" data-copy="@your_telegram">Скопировать Telegram</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" accent-hero">
+      <div class="wrap hero__grid">
+        <div class="hero__left" data-anim="rise">
+          <div class="heroTop">
+          <div class="pill pill--kicker">
+            <span class="pulse"></span>
+            Краснодар • 27 • B2 English • UI/UX
+          </div>
+          <div class="ny-countdown" id="nyCountdown" aria-live="polite" hidden>
+            <span class="ny-countdown__label">До Нового года:</span>
+            <span class="ny-countdown__time" id="nyTime">—</span>
+          </div>
+        </div>
+
+          <h1 class="h1">
+            Современный дизайн и веб,
+            <span class="grad">которые</span> удобно читать
+            и легко покупать.
+          </h1>
+
+          <p class="lead">
+            Привет, меня зовут <b>Артём</b>. Живу и работаю в <b>Краснодаре</b>.
+            Работаю в <button class="inlineTip" type="button" data-toast="Формулировку можно заменить на нейтральную, если нужно.">МВД</button>
+            по г. Краснодар.
+            Делаю <b>сайты</b>, <b>интерфейсы</b>, <b>формы</b> и аккуратный <b>motion</b>.
+            Ассистент мероприятий, “душа компании”. В FiveM/RP — порталы, документация, структуры (RU/US).
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#projects">Мои работы</a>
+            <button class="btn btn--ghost" id="copyBtn" type="button" data-copy="@your_telegram">Скопировать Telegram</button>
+            <a class="btn btn--ghost" href="#services">Что я делаю</a>
+          </div>
+
+          
+          
+          <div class="quickBtns" data-anim="fade" style="--d:160ms">
+            <a class="qpill" href="https://vk.com/artem_chepko" target="_blank" rel="noreferrer" aria-label="VK">
+              <span class="qpill__ico">VK</span><span class="qpill__txt">VK</span>
+            </a>
+            <a class="qpill" href="https://github.com/Artem2412q" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <span class="qpill__ico">GH</span><span class="qpill__txt">GitHub</span>
+            </a>
+            <a class="qpill" href="https://www.youtube.com/@andro_channel" target="_blank" rel="noreferrer" aria-label="YouTube">
+              <span class="qpill__ico">YT</span><span class="qpill__txt">YouTube</span>
+            </a>
+            <a class="qpill" href="https://www.twitch.tv/nochildf" target="_blank" rel="noreferrer" aria-label="Twitch">
+              <span class="qpill__ico">TW</span><span class="qpill__txt">Twitch</span>
+            </a>
+            <a class="qpill" href="mailto:artemcepko69@gmal.com" aria-label="Email">
+              <span class="qpill__ico">@</span><span class="qpill__txt">Email</span>
+            </a>
+          </div>
+
+          <div class="stats" data-anim="fade" style="--d:120ms">
+            <div class="stat surface tilt">
+              <div class="stat__num" data-counter="12">0</div>
+              <div class="stat__lbl">проектов (плейсхолдер)</div>
+            </div>
+            <div class="stat surface tilt">
+              <div class="stat__num" data-counter="70">0</div>
+              <div class="stat__lbl">тыс.+ охват комьюнити</div>
+            </div>
+            <div class="stat surface tilt">
+              <div class="stat__num" data-counter="5">0</div>
+              <div class="stat__lbl">направлений работы</div>
+            </div>
+          </div>
+
+          <div class="marquee" data-anim="fade" style="--d:180ms" aria-label="Теги">
+            <div class="marquee__track">
+              <span class="chip">UI/UX</span>
+              <span class="chip">Figma</span>
+              <span class="chip">HTML/CSS</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">Motion</span>
+              <span class="chip">Portals</span>
+              <span class="chip">Forms</span>
+              <span class="chip">Docs</span>
+              <span class="chip">Events</span>
+              <span class="chip">FiveM/RP</span>
+
+              <span class="chip">UI/UX</span>
+              <span class="chip">Figma</span>
+              <span class="chip">HTML/CSS</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">Motion</span>
+              <span class="chip">Portals</span>
+              <span class="chip">Forms</span>
+              <span class="chip">Docs</span>
+              <span class="chip">Events</span>
+              <span class="chip">FiveM/RP</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero__right" data-anim="rise" style="--d:80ms">
+          <div class="profile surface tilt">
+            <div class="profile__top">
+              <div class="avatar" aria-hidden="true">
+                <div class="avatar__ring"></div>
+                <div class="avatar__core">АР</div>
+              </div>
+
+              <div class="who">
+                <div class="who__name">Артём</div>
+                <div class="who__role">Designer • Web • Events</div>
+              </div>
+
+              <div class="status">
+                <span class="status__dot"></span>
+                <span>online</span>
+              </div>
+            </div>
+
+            <div class="profile__rows">
+              <div class="row"><span class="row__k">Фокус</span><span class="row__v">UI/UX + Web</span></div>
+              <div class="row"><span class="row__k">Принцип</span><span class="row__v">смысл → сетка → polish</span></div>
+              <div class="row"><span class="row__k">Тон</span><span class="row__v">сдержанно, без “шума”</span></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="gridMini">
+              <div class="miniCard">
+                <div class="miniCard__k">Авиа-сим</div>
+                <div class="miniCard__v">Boeing 737 / Airbus A320</div>
+              </div>
+              <div class="miniCard">
+                <div class="miniCard__k">Авто</div>
+                <div class="miniCard__v">Teana • Camry V70 3.5</div>
+              </div>
+            </div>
+
+            <div class="profile__cta">
+              <button class="qbtn qbtn--copy" type="button" data-copy="@your_telegram">
+                <span class="qbtn__icon">TG</span>
+                <span class="qbtn__k">Telegram</span>
+                <span class="qbtn__v">@your_telegram</span>
+                <span class="qbtn__go">Скопировать</span>
+              </button>
+              <button class="qbtn qbtn--copy" type="button" data-copy="artemcepko69@gmal.com">
+                <span class="qbtn__icon">@</span>
+                <span class="qbtn__k">Email</span>
+                <span class="qbtn__v">artemcepko69@gmal.com</span>
+                <span class="qbtn__go">Скопировать</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="bubbles" aria-hidden="true">
+            <div class="bubble bubble--a"></div>
+            <div class="bubble bubble--b"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="wrap">
+        <div class="section__head" data-anim="fade">
+          <div>
+            <h2 class="h2">Обо мне</h2>
+            <p class="sub">Чётко, по строкам — чтобы читалось с первого экрана.</p>
+          </div>
+          <a class="link" href="#contact">Сразу к контакту →</a>
+        </div>
+
+        <div class="grid2">
+          <article class="card surface tilt" data-anim="rise">
+            <h3 class="h3">Кто я</h3>
+            <div class="lines">
+              <div class="line"><span>Имя</span><b>Артём</b></div>
+              <div class="line"><span>Возраст</span><b>27</b></div>
+              <div class="line"><span>Город</span><b>Краснодар</b></div>
+              <div class="line"><span>Профиль</span><b>Дизайн + веб‑разработка</b></div>
+            </div>
+            <p class="muted">
+              Люблю лаконичный интерфейс, хорошую типографику и ровные отступы.
+              Делаю так, чтобы страница ощущалась “дорогой” и работала на результат.
+            </p>
+            <div class="list">
+              <div class="list__item"><span class="check"></span> быстро собрать структуру</div>
+              <div class="list__item"><span class="check"></span> оформить в стиль</div>
+              <div class="list__item"><span class="check"></span> довести до запуска</div>
+            </div>
+          </article>
+
+          <article class="card surface tilt" data-anim="rise" style="--d:90ms">
+            <h3 class="h3">Чем отличаюсь</h3>
+            <div class="bento2">
+              <div class="b2">
+                <div class="b2__t">Вкус</div>
+                <div class="b2__d">сетку + типографику довожу до “вау”</div>
+              </div>
+              <div class="b2">
+                <div class="b2__t">Порядок</div>
+                <div class="b2__d">структура, компоненты, понятный макет</div>
+              </div>
+              <div class="b2">
+                <div class="b2__t">Коммуникация</div>
+                <div class="b2__d">по делу, без качелей</div>
+              </div>
+              <div class="b2">
+                <div class="b2__t">Доведение</div>
+                <div class="b2__d">адаптив, скорость, полировка</div>
+              </div>
+            </div>
+            <div class="note">
+              Хочешь — сделаю форму, которая отправляет заявки прямо в Telegram.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section__head" data-anim="fade">
+          <div>
+            <h2 class="h2">Услуги</h2>
+            <p class="sub">Собрал в “понятные карточки”, без воды.</p>
+          </div>
+          <div class="seg" role="tablist" aria-label="Фильтр">
+            <button class="seg__btn active" type="button" data-filter="all">Все</button>
+            <button class="seg__btn" type="button" data-filter="web">Web</button>
+            <button class="seg__btn" type="button" data-filter="design">UI/UX</button>
+            <button class="seg__btn" type="button" data-filter="events">Events</button>
+          </div>
+        </div>
+
+        <div class="cards3" id="serviceCards">
+          <article class="svc surface tilt" data-anim="rise" data-cat="web">
+            <div class="svc__top">
+              <div class="svc__icon">⚡</div>
+              <div class="svc__title">Лендинг / сайт под ключ</div>
+            </div>
+            <p class="svc__text">Структура, дизайн, адаптив, анимации, базовое SEO, запуск.</p>
+            <div class="svc__tags">
+              <span>UX</span><span>Design</span><span>HTML/CSS</span><span>JS</span>
+            </div>
+          </article>
+
+          <article class="svc surface tilt" data-anim="rise" style="--d:60ms" data-cat="design">
+            <div class="svc__top">
+              <div class="svc__icon">✦</div>
+              <div class="svc__title">UI/UX дизайн</div>
+            </div>
+            <p class="svc__text">Компоненты, состояния, дизайн‑система, “чистый” макет.</p>
+            <div class="svc__tags">
+              <span>Figma</span><span>Components</span><span>Systems</span>
+            </div>
+          </article>
+
+          <article class="svc surface tilt" data-anim="rise" style="--d:120ms" data-cat="web">
+            <div class="svc__top">
+              <div class="svc__icon">◐</div>
+              <div class="svc__title">Motion и микро‑UX</div>
+            </div>
+            <p class="svc__text">Ненавязчивые эффекты, переходы и “живость” без перегруза.</p>
+            <div class="svc__tags">
+              <span>Micro</span><span>Motion</span><span>Delight</span>
+            </div>
+          </article>
+
+          <article class="svc surface tilt" data-anim="rise" style="--d:180ms" data-cat="web">
+            <div class="svc__top">
+              <div class="svc__icon">⌁</div>
+              <div class="svc__title">Порталы / формы</div>
+            </div>
+            <p class="svc__text">Базы знаний, заявки, роли, удобные формы, таблицы и навигация.</p>
+            <div class="svc__tags">
+              <span>Portals</span><span>Forms</span><span>Docs</span>
+            </div>
+          </article>
+
+          <article class="svc surface tilt" data-anim="rise" style="--d:240ms" data-cat="events">
+            <div class="svc__top">
+              <div class="svc__icon">🎤</div>
+              <div class="svc__title">Ассистент мероприятий</div>
+            </div>
+            <p class="svc__text">Организация, координация, коммуникация и “держать ритм”.</p>
+            <div class="svc__tags">
+              <span>Production</span><span>Backstage</span><span>Flow</span>
+            </div>
+          </article>
+
+          <article class="svc surface tilt" data-anim="rise" style="--d:300ms" data-cat="web">
+            <div class="svc__top">
+              <div class="svc__icon">⛭</div>
+              <div class="svc__title">FiveM / RP решения</div>
+            </div>
+            <p class="svc__text">Документация, сайты фракций, логика, автоматизация.</p>
+            <div class="svc__tags">
+              <span>RP</span><span>Community</span><span>Automation</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- PROJECTS -->
+    <section class="section accent-projects" id="projects">
+      <div class="wrap">
+        <div class="section__head" data-anim="fade">
+          <div>
+            <h2 class="h2">Мои работы</h2>
+            <p class="sub">Кейсы из FiveM/RP и реальные проекты. Каждый — адаптивный, со своей стилистикой и анимацией.</p>
+          </div>
+          <div class="pill pill--kicker" style="align-self:center">FiveM • MySQL • UI/UX • Motion</div>
+        </div>
+
+        <div class="notice surface" data-anim="fade">
+          <div class="notice__icon">⚠</div>
+          <div class="notice__text">
+            Проекты <b>WhiteNet</b>, <b>BHB</b> и <b>Drive3</b> — это <b>игровые RP‑сайты</b> в рамках сеттинга.
+            Это <b>не</b> призыв и не площадки для реальных незаконных действий — только художественный/игровой контент.
+          </div>
+        </div>
+
+        <div class="work2" id="workGrid">
+          <button class="case surface tilt" type="button"
+                  data-title="WhiteNet"
+                  data-desc="Белый интернет в просторах интернета. Гейт/хаб для сервера: маршрутизация пользователей по ролям и сценариям, редиректы в игровые подпроекты."
+                  data-tags="RP/fictional,Web,Auth,UI,FiveM,MySQL"
+                  data-link="{VK}">
+            <div class="case__media">
+              <img src="assets/shot-whitenet.png" alt="WhiteNet — скриншот" loading="lazy" />
+              <div class="case__glow"></div>
+              <div class="case__badge">RP</div>
+            </div>
+            <div class="case__body">
+              <div class="case__top">
+                <div class="case__title">WhiteNet</div>
+                <div class="case__meta">Gateway • roles • redirects</div>
+              </div>
+              <p class="case__text">Единая точка входа для “белого интернета” в сеттинге. Мягкий motion, строгая сетка, удобный ввод.</p>
+              <div class="tags"><span>Adaptive</span><span>Animations</span><span>FiveM</span><span>MySQL</span></div>
+            </div>
+          </button>
+
+          <button class="case surface tilt" type="button"
+                  data-title="BHB"
+                  data-desc="Стилизованный сайт организации (в рамках RP‑сеттинга): витрина/маркетплейс, разделы, карточки, фильтры, анимации, плотная стилизация."
+                  data-tags="RP/fictional,Marketplace,UI,Filters,FiveM,MySQL"
+                  data-link="{VK}">
+            <div class="case__media">
+              <img src="assets/shot-bhb.png" alt="BHB — скриншот" loading="lazy" />
+              <div class="case__glow"></div>
+              <div class="case__badge case__badge--red">RP</div>
+            </div>
+            <div class="case__body">
+              <div class="case__top">
+                <div class="case__title">BHB</div>
+                <div class="case__meta">Marketplace • docs • UI</div>
+              </div>
+              <p class="case__text">Разделы, таблицы, карточки, композиция и читаемость даже на длинных страницах. Акцент на атмосферу.</p>
+              <div class="tags"><span>Design</span><span>Components</span><span>Animations</span><span>DB</span></div>
+            </div>
+          </button>
+
+          <button class="case surface tilt" type="button"
+                  data-title="Drive3"
+                  data-desc="Сайт гонок и ставок (RP): кошельки/баланс, участники, коэффициенты, прогресс и интерактивные блоки. Фокус на UX и инфографике."
+                  data-tags="RP/fictional,Dashboards,Stats,UX,FiveM,MySQL"
+                  data-link="{VK}">
+            <div class="case__media">
+              <img src="assets/shot-drive3.png" alt="Drive3 — скриншот" loading="lazy" />
+              <div class="case__glow"></div>
+              <div class="case__badge case__badge--amber">RP</div>
+            </div>
+            <div class="case__body">
+              <div class="case__top">
+                <div class="case__title">Drive3</div>
+                <div class="case__meta">Dashboards • bets • stats</div>
+              </div>
+              <p class="case__text">Интерфейс “как у продукта”: приоритеты, группировка, быстрые действия, визуальный баланс и микро‑анимации.</p>
+              <div class="tags"><span>UX</span><span>Infographics</span><span>Motion</span><span>Adaptive</span></div>
+            </div>
+          </button>
+
+          <button class="case surface tilt" type="button"
+                  data-title="Сайт МЧС РФ"
+                  data-desc="Инфо‑портал/справочник: разделы, вкладки, навигация и быстрый доступ. Заточен под читаемость и поиск информации."
+                  data-tags="Portal,Knowledge base,UI,Navigation,Adaptive"
+                  data-link="{VK}">
+            <div class="case__media">
+              <img src="assets/shot-mchs.png" alt="Сайт МЧС — скриншот" loading="lazy" />
+              <div class="case__glow"></div>
+              <div class="case__badge case__badge--blue">UI</div>
+            </div>
+            <div class="case__body">
+              <div class="case__top">
+                <div class="case__title">Сайт МЧС РФ</div>
+                <div class="case__meta">Portal • tabs • knowledge</div>
+              </div>
+              <p class="case__text">Большой объём контента без “простыни”: табы, логичная иерархия, аккуратные карточки и отступы.</p>
+              <div class="tags"><span>Portal</span><span>Readability</span><span>Components</span><span>Adaptive</span></div>
+            </div>
+          </button>
+        </div>
+
+        <div class="ctaRow" data-anim="fade">
+          <a class="btn btn--primary" href="#contact">Обсудить проект</a>
+          <a class="btn btn--ghost" href="#skills">Навыки и стек</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+
+    <section class="section" id="skills">
+      <div class="wrap">
+        <div class="section__head" data-anim="fade">
+          <div>
+            <h2 class="h2">Навыки и прогресс</h2>
+            <p class="sub">Красивые прогресс‑анимации (крутятся/заполняются при появлении).</p>
+          </div>
+          <span class="hint">* значения — пример</span>
+        </div>
+
+        <div class="grid2">
+          <article class="card surface tilt" data-anim="rise">
+            <h3 class="h3">Сильные стороны</h3>
+
+            <div class="radials" id="radials" data-radials='[
+              {"name":"UI/UX","value":92},
+              {"name":"HTML/CSS","value":94},
+              {"name":"JavaScript","value":82},
+              {"name":"Motion","value":86}
+            ]'></div>
+
+            <div class="stack">
+              <span class="tag">Figma</span>
+              <span class="tag">Design system</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JS</span>
+              <span class="tag">Git</span>
+              <span class="tag">Speed</span>
+              <span class="tag">Adaptivity</span>
+            </div>
+          </article>
+
+          <article class="card surface tilt" data-anim="rise" style="--d:90ms">
+            <h3 class="h3">Прогресс‑бары</h3>
+
+            <div class="bars" id="bars">
+              <div class="bar" data-val="90">
+                <div class="bar__top"><b>Типографика</b><span>90%</span></div>
+                <div class="bar__line"><i></i></div>
+              </div>
+              <div class="bar" data-val="88">
+                <div class="bar__top"><b>Сетка/отступы</b><span>88%</span></div>
+                <div class="bar__line"><i></i></div>
+              </div>
+              <div class="bar" data-val="85">
+                <div class="bar__top"><b>UX логика</b><span>85%</span></div>
+                <div class="bar__line"><i></i></div>
+              </div>
+              <div class="bar" data-val="80">
+                <div class="bar__top"><b>Верстка/адаптив</b><span>80%</span></div>
+                <div class="bar__line"><i></i></div>
+              </div>
+            </div>
+
+            <div class="callout">
+              <span class="spark"></span>
+              <span><b>Фишка:</b> делаю “мягкий” motion, чтобы не раздражал и не тормозил.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXTRA -->
+    <section class="section" id="extra">
+      <div class="wrap">
+        <div class="section__head" data-anim="fade">
+          <div>
+            <h2 class="h2">Дополнительно</h2>
+            <p class="sub">Факты и интересы — чтобы визитка запоминалась.</p>
+          </div>
+          <a class="link" href="#contact">Давай обсудим →</a>
+        </div>
+
+        <div class="grid3">
+          <article class="card surface tilt" data-anim="rise">
+            <h3 class="h3">Язык и характер</h3>
+            <div class="facts">
+              <div class="fact"><span>English</span><b>B2 (Upper‑Intermediate)</b></div>
+              <div class="fact"><span>Режим</span><b>дисциплина • тренировки</b></div>
+              <div class="fact"><span>Отдых</span><b>смена деятельности</b></div>
+            </div>
+          </article>
+
+          <article class="card surface tilt" data-anim="rise" style="--d:90ms">
+            <h3 class="h3">Авиа‑сим</h3>
+            <p class="muted">
+              Умею управлять виртуальным <b>Boeing 737</b> и всей линейкой <b>Airbus A320</b>.
+              Это про внимательность, чек‑листы и спокойную голову.
+            </p>
+            <div class="pillbox">
+              <span class="tag">B737</span>
+              <span class="tag">A320 family</span>
+              <span class="tag">Checklists</span>
+            </div>
+          </article>
+
+          <article class="card surface tilt" data-anim="rise" style="--d:180ms">
+            <h3 class="h3">Авто</h3>
+            <p class="muted">
+              Счастливый владелец <b>Nissan Teana</b> и <b>Toyota Camry V70 3.5</b>.
+            </p>
+            <div class="pillbox">
+              <span class="tag">Teana</span>
+              <span class="tag">Camry V70 3.5</span>
+              <span class="tag">Road vibe</span>
+            </div>
+            <div class="ctaRow ctaRow--tight">
+              <button class="btn btn--ghost" id="copyEmailBtn" type="button" data-copy="artemcepko69@gmal.com">Скопировать email</button>
+              <button class="btn btn--primary" type="button" data-scroll="#contact">Оставить заявку</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section accent-contact" id="contact">
+      <div class="wrap">
+        <div class="section__head" data-anim="fade">
+          <div>
+            <h2 class="h2">Контакты</h2>
+            <p class="sub">Форма — демо. Подключу отправку в Telegram/почту.</p>
+          </div>
+          <span class="hint">быстрый ответ — в TG</span>
+        </div>
+
+        <div class="grid2">
+          <form class="card surface form tilt" id="contactForm" data-anim="rise">
+            <div class="field">
+              <label>Тема</label>
+              <select required>
+                <option value="" selected disabled>Выберите тему</option>
+                <option>Сайт / лендинг</option>
+                <option>UI/UX дизайн</option>
+                <option>Форма / портал</option>
+                <option>Ивент / продакшн</option>
+                <option>Другое</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Контакт</label>
+              <input type="text" required placeholder="@telegram или email" />
+            </div>
+
+            <div class="field">
+              <label>Сообщение</label>
+              <textarea rows="5" placeholder="Коротко: что нужно, срок, референсы"></textarea>
+            </div>
+
+            <div class="row2">
+              <label class="chk">
+                <input type="checkbox" id="notRobot" />
+                <span>Я не робот (демо)</span>
+              </label>
+              <button class="btn btn--primary" type="submit">Отправить</button>
+            </div>
+
+            <div class="form__note" id="formNote" aria-live="polite"></div>
+          </form>
+
+          <div class="card surface tilt" data-anim="rise" style="--d:90ms">
+            <h3 class="h3">Быстрые кнопки</h3>
+            <div class="quick">
+              <button class="qbtn qbtn--copy" type="button" data-copy="@your_telegram">
+                <span class="qbtn__icon">TG</span>
+                <span class="qbtn__k">Telegram</span>
+                <span class="qbtn__v">@your_telegram</span>
+                <span class="qbtn__go">Скопировать</span>
+              </button>
+              <button class="qbtn qbtn--copy" type="button" data-copy="artemcepko69@gmal.com">
+                <span class="qbtn__icon">@</span>
+                <span class="qbtn__k">Email</span>
+                <span class="qbtn__v">artemcepko69@gmal.com</span>
+                <span class="qbtn__go">Скопировать</span>
+              </button>
+              <a class="qbtn qbtn--link" href="https://vk.com/artem_chepko" target="_blank" rel="noreferrer">
+                <span class="qbtn__icon">VK</span>
+                <span class="qbtn__k">VK / Portfolio</span>
+                <span class="qbtn__v">vk.com/artem_chepko</span>
+                <span class="qbtn__go">Открыть</span>
+              </a>
+            </div>
+
+            
+            <div class="socialGrid">
+              <a class="sbtn sbtn--big" href="https://vk.com/artem_chepko" target="_blank" rel="noreferrer">VK</a>
+              <a class="sbtn sbtn--big" href="https://github.com/Artem2412q" target="_blank" rel="noreferrer">GitHub</a>
+              <a class="sbtn sbtn--big" href="https://www.youtube.com/@andro_channel" target="_blank" rel="noreferrer">YouTube</a>
+              <a class="sbtn sbtn--big" href="https://www.twitch.tv/nochildf" target="_blank" rel="noreferrer">Twitch</a>
+            </div>
+<div class="footerLine">
+              <span>© <span id="year"></span> Артём</span>
+              <span class="dot"></span>
+              <a class="link" href="#top">Наверх ↑</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Project modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__bg" data-close></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-label="Проект">
+      <button class="iconbtn modal__close" type="button" data-close aria-label="Закрыть">✕</button>
+      <div class="modal__cover" id="mCover"></div>
+      <div class="modal__body">
+        <div class="modal__title" id="mTitle">Проект</div>
+        <div class="modal__desc" id="mDesc"></div>
+        <div class="tags" id="mTags"></div>
+        <div class="modal__actions">
+          <a class="btn btn--ghost" id="mLink" href="#" target="_blank" rel="noreferrer">Открыть ссылку</a>
+          <a class="btn btn--primary" href="#contact" data-close>Хочу так же</a>
+          <button class="btn btn--ghost" type="button" data-close>Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>
