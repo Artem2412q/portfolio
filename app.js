@@ -394,7 +394,8 @@ window.addEventListener("hashchange", ()=>{
 
 
 
-/* ---- v11-fix4: floating tooltip (row-aware) ---- */
+
+/* ---- v11-fix5: floating tooltip (row-aware + side for middle rows) ---- */
 (function(){
   const tip = document.getElementById("tipFloat");
   if(!tip) return;
@@ -402,45 +403,53 @@ window.addEventListener("hashchange", ()=>{
   let activeEl = null;
   let hideT = null;
 
-  function uniqSorted(values, tol=6){
+  function cluster(values, tol){
+    const arr = values.slice().sort((a,b)=>a-b);
     const out = [];
-    values.sort((a,b)=>a-b);
-    for(const v of values){
-      if(out.length===0 || Math.abs(v - out[out.length-1]) > tol) out.push(v);
+    for(const v of arr){
+      if(!out.length || Math.abs(v - out[out.length-1]) > tol) out.push(v);
     }
     return out;
   }
 
-  function columnsCount(els){
-    const lefts = uniqSorted(els.map(e=>Math.round(e.getBoundingClientRect().left)), 10);
-    return lefts.length;
-  }
-
-  function rowIndex(el, container, selector){
+  function rowCol(el, container, selector){
     const els = Array.from(container.querySelectorAll(selector));
-    if(els.length === 0) return 0;
-    const tops = uniqSorted(els.map(e=>Math.round(e.getBoundingClientRect().top)), 10);
-    const t = Math.round(el.getBoundingClientRect().top);
-    let idx = 0;
-    let best = Infinity;
-    for(let i=0;i<tops.length;i++){
-      const d = Math.abs(t - tops[i]);
-      if(d < best){ best = d; idx = i; }
-    }
-    return idx;
+    if(!els.length) return {row:0, col:0, rows:1, cols:1};
+
+    const rects = els.map(e=>e.getBoundingClientRect());
+    const tops  = cluster(rects.map(r=>Math.round(r.top)), 6);
+    const lefts = cluster(rects.map(r=>Math.round(r.left)), 14);
+
+    const rEl = el.getBoundingClientRect();
+    const t = Math.round(rEl.top);
+    const l = Math.round(rEl.left);
+
+    const nearestIdx = (arr, v)=>{
+      let idx=0, best=Infinity;
+      for(let i=0;i<arr.length;i++){
+        const d = Math.abs(arr[i]-v);
+        if(d<best){best=d; idx=i;}
+      }
+      return idx;
+    };
+
+    return {
+      row: nearestIdx(tops, t),
+      col: nearestIdx(lefts, l),
+      rows: tops.length,
+      cols: lefts.length
+    };
   }
 
   function show(el){
     const text = el.getAttribute("data-tip");
     if(!text) return;
-
     activeEl = el;
     clearTimeout(hideT);
 
     tip.textContent = text;
     tip.classList.add("is-on");
     tip.setAttribute("aria-hidden","false");
-
     position(el);
   }
 
@@ -455,54 +464,65 @@ window.addEventListener("hashchange", ()=>{
   function position(el){
     if(!el || !tip.classList.contains("is-on")) return;
 
-    // measure tooltip
     tip.style.transform = "translate3d(-9999px,-9999px,0)";
     const rect = el.getBoundingClientRect();
     const pad = 12;
 
-    // Determine preferred placement:
-    let prefer = "top";
-
-    const strengths = el.closest(".strengths");
-    if(strengths){
-      const chips = Array.from(strengths.querySelectorAll(".chip"));
-      const cols = columnsCount(chips);
-      if(cols <= 1){
-        // In 1-column layout, prefer top to avoid covering next item
-        prefer = "top";
-      } else {
-        const r = rowIndex(el, strengths, ".chip");
-        prefer = (r === 0) ? "top" : "bottom";
-      }
-    } else {
-      // generic: top if enough space else bottom
-      prefer = (rect.top > 120) ? "top" : "bottom";
-    }
-
-    // compute size after setting text
+    // Measure after paint
     const tipW = tip.offsetWidth;
     const tipH = tip.offsetHeight;
 
+    let place = "top";
+
+    const strengths = el.closest(".strengths");
+    if(strengths){
+      const info = rowCol(el, strengths, ".chip");
+      if(info.cols <= 1){
+        place = "top";
+      } else if(info.row === 0){
+        place = "top";
+      } else if(info.row === info.rows - 1){
+        place = "bottom";
+      } else {
+        // middle rows -> side to avoid covering rows
+        place = (info.col <= Math.floor((info.cols-1)/2)) ? "right" : "left";
+      }
+    } else {
+      place = (rect.top > 120) ? "top" : "bottom";
+    }
+
     let x = rect.left + rect.width/2 - tipW/2;
+    let y = rect.top - tipH - 12;
+
+    if(place === "bottom"){
+      y = rect.bottom + 12;
+    }
+    if(place === "right"){
+      x = rect.right + 12;
+      y = rect.top + rect.height/2 - tipH/2;
+    }
+    if(place === "left"){
+      x = rect.left - tipW - 12;
+      y = rect.top + rect.height/2 - tipH/2;
+    }
+
+    // Clamp to viewport
     x = clamp(x, pad, window.innerWidth - tipW - pad);
+    y = clamp(y, pad, window.innerHeight - tipH - pad);
 
-    let yTop = rect.top - tipH - 10;
-    let yBottom = rect.bottom + 10;
-
-    // flip if needed
-    if(prefer === "top" && yTop < pad) prefer = "bottom";
-    if(prefer === "bottom" && (yBottom + tipH) > (window.innerHeight - pad)) prefer = "top";
-
-    let y = (prefer === "top") ? yTop : yBottom;
-
-    // last resort: side placement
-    if(y < pad) y = pad;
-    if(y + tipH > window.innerHeight - pad) y = window.innerHeight - tipH - pad;
+    // flip if top has no space
+    if(place === "top" && rect.top - tipH - 12 < pad){
+      y = rect.bottom + 12;
+      y = clamp(y, pad, window.innerHeight - tipH - pad);
+    }
+    if(place === "bottom" && rect.bottom + tipH + 12 > window.innerHeight - pad){
+      y = rect.top - tipH - 12;
+      y = clamp(y, pad, window.innerHeight - tipH - pad);
+    }
 
     tip.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`;
   }
 
-  // Events
   document.addEventListener("pointerenter", (e)=>{
     const el = e.target?.closest?.("[data-tip]");
     if(el) show(el);
@@ -511,7 +531,7 @@ window.addEventListener("hashchange", ()=>{
   document.addEventListener("pointerleave", (e)=>{
     const el = e.target?.closest?.("[data-tip]");
     if(el && el === activeEl){
-      hideT = setTimeout(hide, 50);
+      hideT = setTimeout(hide, 60);
     }
   }, true);
 
@@ -525,10 +545,6 @@ window.addEventListener("hashchange", ()=>{
     if(el && el === activeEl) hide();
   });
 
-  window.addEventListener("scroll", ()=>{
-    if(activeEl) position(activeEl);
-  }, {passive:true});
-  window.addEventListener("resize", ()=>{
-    if(activeEl) position(activeEl);
-  });
+  window.addEventListener("scroll", ()=>{ if(activeEl) position(activeEl); }, {passive:true});
+  window.addEventListener("resize", ()=>{ if(activeEl) position(activeEl); });
 })();
